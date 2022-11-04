@@ -3,7 +3,6 @@ from urllib.parse import SplitResultBytes
 
 import pygame
 from pygame.sprite import Sprite
-
 from dino_runner.utils.constants import JUMPING, RUNNING
 
 class Dinosaur(Sprite):
@@ -13,7 +12,7 @@ class Dinosaur(Sprite):
     INITIAL_STEP = 0
     MAX_STEP = 10
     ACELERATION = 4
-    REDUCE_VELOCITY = 0,9
+    REDUCE_VELOCITY = 0.9
     INITIAL_VELOCITY = 8
 
 

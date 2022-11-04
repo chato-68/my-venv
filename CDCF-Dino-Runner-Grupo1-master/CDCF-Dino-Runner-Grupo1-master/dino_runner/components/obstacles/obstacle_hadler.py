@@ -16,5 +16,5 @@ class ObstacleHandler():
     
     def draw(self, screen):
         for obstacle in self.obstacles:
-            obstacle.update(screen)
+            obstacle.Draw(screen)
 
