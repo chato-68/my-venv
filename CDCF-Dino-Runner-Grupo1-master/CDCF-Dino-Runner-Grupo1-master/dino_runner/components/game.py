@@ -1,11 +1,14 @@
+from email import message
 import pygame
 
-from dino_runner.utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from utils.constants import BG, ICON, SCREEN_HEIGHT, SCREEN_WIDTH, TITLE, FPS
+from utils import text_utils
 
-from dino_runner.components.dinosuar import Dinosaur
-from dino_runner.components.obstacles.obstacle_handler import ObstacleHandler
+from components.dinosuar import Dinosaur
+from components.obstacles.obstacle_handler import ObstacleHandler
 
 class Game:
+    MAX_LIVES = 3
     def __init__(self):
         pygame.init()
         pygame.display.set_caption(TITLE)
@@ -19,6 +22,7 @@ class Game:
         self.x_pos_bg = 0
         self.y_pos_bg = 380
         self.points = 0
+        self.lives = self.MAX_LIVES
 
     def run(self):
         # Game loop: events - update - draw
@@ -38,6 +42,7 @@ class Game:
         dino_event = pygame.key.get_pressed()
         self.dinosaur.update(dino_event)
         self.obstacle_handler.update(self.game_speed, self.dinosaur)
+        self.update_score()
 
 
     def draw(self):
@@ -46,6 +51,7 @@ class Game:
         self.draw_background()
         self.dinosaur.draw(self.screen)
         self.obstacle_handler.draw(self.screen)
+        self.draw_score()
         pygame.display.update()
         pygame.display.flip()
 
@@ -57,3 +63,13 @@ class Game:
             self.screen.blit(BG, (image_width + self.x_pos_bg, self.y_pos_bg))
             self.x_pos_bg = 0
         self.x_pos_bg -= self.game_speed
+
+    def draw_score(self):
+        message = "points: "+ str(self.points)
+        points_text, points_rect = text_utils.get_text_element(message, SCREEN_WIDTH - 100, 40, 25)
+        self.screen.blit(points_text, points_rect)
+
+    def update_score(self):
+        self.points += 1 
+        if self.points % 100 == 0:
+            self.game_speed += 1

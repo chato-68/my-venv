@@ -1,7 +1,7 @@
 import pygame
-from dino_runner.utils.constants import SMALL_CACTUS
+from utils.constants import SMALL_CACTUS
 
-from dino_runner.components.obstacles.cactus import Cactus
+from components.obstacles.cactus import Cactus
 
 class ObstacleHandler():
     def __init__(self):
